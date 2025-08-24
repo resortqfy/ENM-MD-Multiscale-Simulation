@@ -7,7 +7,7 @@
 **单位**: 北京师范大学 数学科学学院 (Beijing Normal University, School of Mathematical Sciences)
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
-> **注意**: 上面的 DOI 徽章是占位符。当你项目完成，按照我之前提到的方法在 Zenodo 上发布后，替换成你自己的 DOI。
+> **注意**: 上面的 DOI 徽章是占位符。当项目完成，替换为有效的 DOI。
 
 ---
 
@@ -80,7 +80,7 @@ If you find our work useful in your research, please consider citing our paper a
   url     = {https://github.com/[你的用户名]/[你的仓库名]}
 }
 ```
-> **注意**: 上面的 BibTeX 是一个模板，请在论文发表后更新为实际信息。
+> **注意**: 上面的 BibTeX 是一个模板，将在论文发表后更新为实际信息。
 
 ## 致谢 (Acknowledgements)
 
