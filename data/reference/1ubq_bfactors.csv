@@ -1,0 +1,12 @@
+residue,bfactor
+1,10.38  # MET CA
+2,9.07   # GLN CA
+3,5.07   # ILE CA
+4,4.68   # PHE CA
+5,3.87   # VAL CA
+6,6.12   # LYS CA
+7,7.48   # THR CA
+8,14.15  # LEU CA
+9,19.24  # THR CA
+10,18.74 # GLY CA
+# ... 继续到76

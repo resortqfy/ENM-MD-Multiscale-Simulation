@@ -1,0 +1,6 @@
+BOLTZMANN = 1.380649e-23  # J/K
+AVOGADRO = 6.02214076e23  # mol^-1
+# 其他常数
+SPRING_CONSTANT = 1.0  # 默认弹性常数
+CUTOFF_DISTANCE = 12.0  # Å
+GAMMA = 0.5  # 阻尼系数

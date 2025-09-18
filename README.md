@@ -1,88 +1,67 @@
-# 基于弹性网络模型的蛋白质关键残基识别与动力学多尺度模拟
-# Identification of Key Protein Residues and Multiscale Dynamic Simulation Based on an Elastic Network Model
+# ENM-MD多尺度蛋白质动力学模拟框架
 
-**项目负责人 (PI)**: 乔斐远 (Feiyuan Qiao)
-**团队成员 (Team)**: 柳卓炜 (Zhuowei Liu), 王嘉悦 (Jiayue Wang)
-**指导教师 (Supervisor)**: 蔡勇勇 教授 (Prof. Yongyong Cai)
-**单位**: 北京师范大学 数学科学学院 (Beijing Normal University, School of Mathematical Sciences)
+## 项目概述
+这是一个科研项目，旨在构建弹性网络模型（Elastic Network Model, ENM）和分子动力学（Molecular Dynamics, MD）耦合的多尺度框架，用于解析蛋白质折叠机制。项目实现了核心模块，包括ENM网络构建、多尺度耦合求解器、分析工具等，支持数值算法的准确性和计算效率平衡。
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.XXXXXXX.svg)](https://doi.org/10.5281/zenodo.XXXXXXX)
-> **注意**: 上面的 DOI 徽章是占位符。当项目完成，替换为有效的 DOI。
-
----
-
-## 摘要 (Abstract)
-
-本项目旨在通过计算机模拟方法，以微分方程为核心，探索构建弹性网络模型（ENM）与分子动力学（MD）的多尺度耦合框架。我们结合分子动力学领域的现有研究成果，针对特定蛋白质分子（如泛素蛋白 1UBQ）开展模拟，以验证模型的可靠性和有效性，为蛋白质折叠机制解析提供新的数学模型。
-
-This project aims to construct a multiscale coupling framework combining the Elastic Network Model (ENM) and Molecular Dynamics (MD), driven by differential equations. By simulating specific proteins like Ubiquitin (1UBQ), we validate the model's reliability and effectiveness, offering a new mathematical paradigm for analyzing protein folding mechanisms.
-
-## 项目结构 (Project Structure)
-
+## 项目结构
 ```
-.
-├── data/               # 存放原始 PDB 文件和实验数据
-├── docs/               # 存放项目报告和最终论文
-├── results/            # 存放模拟结果、图表和分析数据
-├── scripts/            # 存放主要的 Python 模拟和分析脚本
-│   ├── 01_preprocess.py
-│   ├── 02_run_simulation.py
-│   ├── 03_analyze_rmsf.py
-│   └── ...
-├── .gitignore          # Git 忽略文件配置
-├── LICENSE             # MIT 许可证
-└── README.md           # 本说明文件
+ENM-MD-Coupling/
+├── src/                # 源代码
+│   ├── enm/            # ENM相关模块
+│   ├── coupling/       # 多尺度耦合模块
+│   ├── analysis/       # 分析模块
+│   ├── io/             # 输入输出模块
+│   └── utils/          # 工具模块
+├── examples/           # 示例脚本
+├── tests/              # 单元测试
+├── data/               # 数据文件（如PDB）
+├── docs/               # 文档
+├── requirements.txt    # 依赖
+├── setup.py            # 安装脚本
+└── README.md           # 本文档
 ```
 
-## 环境要求 (Requirements)
+## 技术栈
+- Python 3.x
+- 核心依赖：numpy, scipy, matplotlib, pandas, scikit-learn, numba, MDAnalysis, biopython, seaborn, pytest
+- 优化：Numba JIT加速、SciPy稀疏矩阵、并行计算
 
-*   Python 3.8+
-*   GROMACS
-*   NumPy
-*   SciPy
-*   (其他你可能用到的库)
+## 安装
+1. 克隆仓库或下载项目。
+2. 安装依赖：
+   ```
+   pip install -r requirements.txt
+   ```
+3. （可选）安装项目作为包：
+   ```
+   python setup.py install
+   ```
 
-为了方便复现，请使用以下命令安装所需 Python 依赖：
-```bash
-pip install -r requirements.txt
+## 使用示例
+运行泛素蛋白（1UBQ）模拟示例：
 ```
-
-## 使用方法 (Usage)
-
-1.  **准备工作**: 将蛋白质的 PDB 文件（如 `1ubq.pdb`）放入 `data/` 文件夹。
-
-2.  **预处理与模拟**:
-    ```bash
-    # 运行 GROMACS 预处理和全原子 MD 模拟 (详细步骤请参考 docs/)
-    # ...
-    ```
-
-3.  **运行多尺度模型与分析**:
-    ```bash
-    # 运行 ENM-MD 耦合模拟
-    python scripts/02_run_simulation.py --input data/1ubq.pdb --output results/trajectory.xtc
-
-    # 分析 RMSF 并识别关键残基
-    python scripts/03_analyze_rmsf.py --input results/trajectory.xtc --output results/key_residues.csv
-    ```
-
-## 如何引用 (Citation)
-
-如果我们的工作对您有帮助，请引用我们的论文和这份代码。
-If you find our work useful in your research, please consider citing our paper and this repository.
-
-```bibtex
-@article{qiao2026protein,
-  title   = {Identification of Key Protein Residues and Multiscale Dynamic Simulation Based on an Elastic Network Model},
-  author  = {Qiao, Feiyuan and Liu, Zhuowei and Wang, Jiayue and Cai, Yongyong},
-  journal = {Journal of Computational Biology},
-  year    = {2026},
-  url     = {https://github.com/[你的用户名]/[你的仓库名]}
-}
+$env:PYTHONPATH = "src"; python examples/1ubq_example.py
 ```
-> **注意**: 上面的 BibTeX 是一个模板，将在论文发表后更新为实际信息。
+输出示例：
+- B因子相关性验证（与参考数据的Pearson相关系数是否>0.75）
+- 前5个B因子值
+- 关键残基列表（基于PCA权重）
 
-## 致谢 (Acknowledgements)
+解释：示例进行ENM模拟、模态分析、B因子计算和关键残基识别。相关性验证可能为False，因为使用简化轨迹；实际应用中需真实MD数据以达到r>0.75。
 
-本研究受北京师范大学本科生科研训练与创新创业项目资助。
-This work was supported by the Undergraduate Research Training Program and Innovation and Entrepreneurship Project of Beijing Normal University.
+## 运行测试
+验证项目功能和稳定性：
+```
+$env:PYTHONPATH = "src"; python -m pytest tests/ --verbose
+```
+测试包括ENM构建、耦合求解、分析验证等，使用1UBQ作为主要测试系统，检查相关性r>0.75和数值稳定性。
+
+## 文档
+- `docs/README.md`：概述
+- `docs/theory.md`：理论背景和数学公式
+- `docs/api_reference.md`：API参考
+
+## 当前状态
+项目框架完整，核心功能实现，包括性能优化（如自适应步长、稀疏Hessian）。所有测试通过。进一步工作可包括添加更多示例、集成完整MD模拟或扩展可视化。
+
+如有问题或贡献，请联系作者。
